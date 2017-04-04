@@ -1,0 +1,19 @@
+---
+- name: Allow connections to mongoDB within local network
+  ufw:
+    proto: tcp
+    port: 27017
+    rule: allow
+    src: 192.168.125.0/24
+- name: Update apt cache.
+  apt:
+    update_cache: yes
+    cache_valid_time: 86400
+  changed_when: false
+- name: Ensure mongodb is installed.
+  apt:
+    name: mongodb
+    state: installed
+- name: Copy InfluxDB configuration
+  template: src=mongodb.conf dest=/etc/mongodb.conf
+  notify: restart mongodb
