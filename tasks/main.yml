@@ -10,10 +10,10 @@
     update_cache: yes
     cache_valid_time: 86400
   changed_when: false
-- name: Ensure mongodb is installed.
+- name: Ensure mongoDB is installed.
   apt:
     name: mongodb
     state: installed
-- name: Copy InfluxDB configuration
+- name: Copy mongoDB configuration
   template: src=mongodb.conf dest=/etc/mongodb.conf
   notify: restart mongodb
